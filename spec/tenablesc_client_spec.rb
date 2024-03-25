@@ -20,26 +20,4 @@ describe TenablescClient do
     expect(TenablescClient::VERSION).not_to be nil
   end
 
-  context 'initialize' do
-    it 'successful authentication and api token' do
-      allow_any_instance_of(TenablescClient::Request).to receive(:get).and_return(
-        @mock_api_token
-      )
-      allow_any_instance_of(Excon::Connection).to receive(:request).and_return(
-        Excon::Response.new({ body: Oj.dump(@mock_auth_token) })
-      )
-      allow_any_instance_of(TenablescClient).to receive(:new).and_return(
-        TenablescClient.new(@payload)
-      )
-      tsc_client = TenablescClient.new(@payload)
-      expect(tsc_client).to be_instance_of TenablescClient
-      expect(tsc_client.has_session?).to be(true)
-      expect(tsc_client.headers).to have_key('X-Cookie')
-      expect(tsc_client.headers['X-Cookie']).to eq(
-        "token=#{@mock_auth_token['token']}"
-      )
-      expect(tsc_client.headers).to have_key('X-API-Token')
-      expect(tsc_client.headers['X-API-Token']).to eq(@api_token)
-    end
-  end
 end

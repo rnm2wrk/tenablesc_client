@@ -5,7 +5,7 @@ module Resource::Queries
   # List the queries.
   # @return [Hash] list of queries.
   def queries
-    request.get({ path: '/rest/query', headers: headers, format: 'JSON' })
+    request.get({ path: '/rest/query', headers: headers, format: 'JSON' })['response']
   end
 
   # Get id of a query by its name.
@@ -18,7 +18,7 @@ module Resource::Queries
   end
 
   def get_query_info(query_id)
-    request.get({ path: "/rest/query/#{query_id}", headers: headers, format: 'JSON' })
+    request.get({ path: "/rest/query/#{query_id}", headers: headers, format: 'JSON' })['response']
   end
   # Get a query by its name.
   # @param [String] query_name The name of the query.
@@ -28,7 +28,7 @@ module Resource::Queries
   # @return [Hash] A query object.
   def get_vulns_by_query_name(query_name, s_offset = 0, e_offset = 50, source = 'cumulative')
     query_id = get_query_id_by_name(query_name)
-    query_info = get_query_info(query_id)['response']
+    query_info = get_query_info(query_id)
     params = 
     { 
       'query' => {
@@ -44,6 +44,6 @@ module Resource::Queries
       'sourceType' => source
     }
 
-    request.post({ path: '/rest/analysis', headers: headers, payload: params, format: 'JSON' })
+    request.post({ path: '/rest/analysis', headers: headers, payload: params, format: 'JSON' })['response']
   end
 end

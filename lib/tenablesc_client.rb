@@ -17,6 +17,7 @@ class TenablescClient
   # @return [Hash] Instance current HTTP headers.
   attr_reader :headers
 
+  include Resource::Asset
   include Resource::Queries
   include Resource::Server
   include Resource::Session

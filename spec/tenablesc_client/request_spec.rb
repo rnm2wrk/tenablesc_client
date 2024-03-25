@@ -4,7 +4,7 @@ require_relative '../spec_helper'
 
 describe TenablescClient::Request do
   before(:context) do
-    @nessus_request = TenablescClient::Request.new(
+    @tenable_request = TenablescClient::Request.new(
       { uri: 'http://ness.us', ssl_verify_peer: true }
     )
   end
@@ -47,12 +47,12 @@ describe TenablescClient::Request do
     end
     it 'can read from instance method' do
       # read
-      expect(@nessus_request.url).to eq('http://ness.us')
+      expect(@tenable_request.url).to eq('http://ness.us')
     end
     it 'can write from instance method' do
       # write
       expect {
-        @nessus_request.url = 'http://nessus.io'
+        @tenable_request.url = 'http://nessus.io'
       }.to raise_error(NoMethodError)
     end
   end
@@ -94,7 +94,7 @@ describe TenablescClient::Request do
         :get
       ).and_return('RESPONSE_BODY')
       expect(
-        @nessus_request.get
+        @tenable_request.get
       ).to eq('RESPONSE_BODY')
     end
     it 'all parameters defined' do
@@ -109,11 +109,12 @@ describe TenablescClient::Request do
         )
       )
       expect(
-        @nessus_request.get(
+        @tenable_request.get(
           {
             path: 'path',
             payload: 'payload',
-            query: 'query'
+            query: 'query',
+            format: 'JSON'
           }
         )
       ).to eq('RESPONSE_BODY')
@@ -123,7 +124,7 @@ describe TenablescClient::Request do
         :request
       ).and_return(Excon::Response.new({ body: '' }))
       expect(
-        @nessus_request.get
+        @tenable_request.get(format: 'JSON')
       ).to eq(nil)
     end
     it 'should raise Excon::Error exception' do
@@ -131,7 +132,7 @@ describe TenablescClient::Request do
         :request
       ).and_raise(Excon::Error)
       expect {
-        @nessus_request.get({ path: '/' })
+        @tenable_request.get({ path: '/', format: 'JSON' })
       }.to raise_error(Excon::Error)
     end
   end
@@ -142,7 +143,7 @@ describe TenablescClient::Request do
         :post
       ).and_return('RESPONSE_BODY')
       expect(
-        @nessus_request.post
+        @tenable_request.post
       ).to eq('RESPONSE_BODY')
     end
     it 'request with json data' do
@@ -150,7 +151,7 @@ describe TenablescClient::Request do
         :request
       ).and_return(Excon::Response.new({ body: 'RESPONSE_BODY' }))
       expect(
-        @nessus_request.post({ path: '/', payload: '{"key":"data"}' })
+        @tenable_request.post({ path: '/', payload: '{"key":"data"}', format: 'JSON' })
       ).to eq('RESPONSE_BODY')
     end
   end
@@ -161,7 +162,7 @@ describe TenablescClient::Request do
         :delete
       ).and_return('RESPONSE_BODY')
       expect(
-        @nessus_request.delete
+        @tenable_request.delete
       ).to eq('RESPONSE_BODY')
     end
     it 'request with json data' do
@@ -171,7 +172,7 @@ describe TenablescClient::Request do
         Excon::Response.new({ body: 'RESPONSE_BODY' })
       )
       expect(
-        @nessus_request.delete({ path: '/', payload: '{"key":"data"}' })
+        @tenable_request.delete({ path: '/', payload: '{"key":"data"}', format: 'JSON' })
       ).to eq('RESPONSE_BODY')
     end
   end
