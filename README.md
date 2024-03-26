@@ -7,8 +7,6 @@ TenableSCClient was designed to be simple, fast and performant through communica
 **Ruby gem for Tenable SC API**
 
   * [Source Code](https://github.com/rnm2wrk/tenablesc_client)
-  * [API documentation](https://rubydoc.info/github/rnm2wrk/tenablesc_client)
-  * [Rubygem](https://rubygems.org/gems/tenablesc_client)
 
 ## Contact
 
@@ -49,22 +47,6 @@ if tc2.check_session
   puts tc.get_vulns_by_query_name('query_name')
 end
 ```
-
-
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'tenablesc_client'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install tenablesc_client
 
 ## Requirements
 
