@@ -13,6 +13,7 @@ module Resource::Asset
                   'limit' => limit.to_s
                 }, format: 'JSON' })['response']
   end
+  
   # Get asset info by its UUID.
   # @param [String] asset_uuid The uuid of an asset.
   # @param [Integer] limit The limit of possible returned results.
@@ -23,6 +24,7 @@ module Resource::Asset
                   'saveHistory' => 'true'
                 }, format: 'JSON' })['response']
   end
+
   # Get asset info by its IP Address.
   # @param [String] asset_ip The IP Address of an asset.
   # @param [Integer] limit The limit of possible returned results.
@@ -36,6 +38,7 @@ module Resource::Asset
     end
     { 'count' => 0, 'results' => [] }
   end
+
   # Get vulnerability list from an asset IP Address.
   # @param [String] asset_ip The ip address of a query
   # @param [Integer] s_offset start offset of returned information
