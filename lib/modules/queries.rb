@@ -12,7 +12,7 @@ module Resource::Queries
   # @param [String] query_name The name of the query.
   # @return [Integer] ID of a query.
   def get_query_id_by_name(query_name)
-    queries['response']['usable'].each do |query|
+    queries['usable'].each do |query|
       return query['id'] if query['name'] == query_name
     end
   end
@@ -20,7 +20,7 @@ module Resource::Queries
   def get_query_info(query_id)
     request.get({ path: "/rest/query/#{query_id}", headers: headers, format: 'JSON' })['response']
   end
-  # Get a query by its name.
+  # Get a query result by its name.
   # @param [String] query_name The name of the query.
   # @param [Integer] s_offset start offset of returned information from query
   # @param [Integer] e_offset end offset of returned information from query
