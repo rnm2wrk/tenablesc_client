@@ -19,6 +19,7 @@ class TenablescClient
 
   include Resource::Asset
   include Resource::Queries
+  include Resource::Scan
   include Resource::Server
   include Resource::Session
 
