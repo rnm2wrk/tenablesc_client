@@ -2,5 +2,5 @@
 
 class TenablescClient
   # The current version of the libary.
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 end
